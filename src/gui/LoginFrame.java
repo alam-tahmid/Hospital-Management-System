@@ -15,7 +15,8 @@ public class LoginFrame extends JFrame{
 	public LoginFrame(){
 		
 		super("Welcome ! Choose your login option");
-		loginToolBar = new LoginToolbar();
+		
+		loginToolBar = new LoginToolbar(this);
 		
 		add(loginToolBar,BorderLayout.CENTER);
 		setLayout(new GridBagLayout());

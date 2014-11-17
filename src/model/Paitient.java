@@ -1,10 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Paitient {
+public class Paitient implements Serializable {
 
-	private int id;//unique id of the paitient in the database
+	
+	private static final long serialVersionUID = -8073002703117196230L;
+	
+	private String id;//unique id of the paitient in the database
 	private String firstName;
 	private String lastName;
 	private String occupation;
@@ -14,12 +18,11 @@ public class Paitient {
 	private String email;
 	private Gender gender;
 	
-	public Paitient(String firstName, String lastName, String occupation,
+	public Paitient(String id,String firstName, String lastName, String occupation,
 			String age, String address, String phone, String email,
 			Gender gender) {
 		
-		Random random = new Random();
-		
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.occupation = occupation;
@@ -28,15 +31,13 @@ public class Paitient {
 		this.phone = phone;
 		this.email = email;
 		this.gender = gender;
-		id =  random.nextInt(Integer.max(0, Integer.MAX_VALUE));
-		
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -103,7 +104,4 @@ public class Paitient {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	
-	
-
 }

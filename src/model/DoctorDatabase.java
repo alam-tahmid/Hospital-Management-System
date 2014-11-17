@@ -13,82 +13,82 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PaitientDatabase {
+public class DoctorDatabase {
 
-	private List<Paitient> paitientData;
+	private List<Doctor> doctorData;
 
-	public PaitientDatabase() {
+	public DoctorDatabase() {
 
-		paitientData =  new LinkedList<Paitient>();
+		doctorData =  new LinkedList<Doctor>();
 	}
-	
-	public void addPaitient(Paitient paitient){
-		
-		paitientData.add(paitient);
+
+	public void addPaitient(Doctor Doctor){
+
+		doctorData.add(Doctor);
 	}
-	
-	public List<Paitient> getPaitient(){
-		
-		return Collections.unmodifiableList(paitientData);
+
+	public List<Doctor> getPaitient(){
+
+		return Collections.unmodifiableList(doctorData);
 	}
-	
+
 	public void connect() throws Exception{
-		
+
 		try {
-			
+
 			Class.forName("com.mysql.jdbc.Driver");
-			
+
 		} catch (ClassNotFoundException e) {
-			
+
 			throw new Exception("org.apache.derby.jdbc.EmbeddedDriver");
 		}
-		
-		String dbName = "PaitientDatabase";
-		
+
+		String dbName = "DoctorDatabase";
+
 		String Url= "jdbc:derby:" + dbName + ";create=truer";
-		
+
 		Connection con = DriverManager.getConnection(Url,"root","");
-		
+
 	}
-	
+
 	public void disconnect(){
-		
-		
+
+
 	}
-	
+
 	public void saveToFile(File file) throws IOException{
-		
+
 		FileOutputStream fos = new FileOutputStream(file);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		
-		Paitient[] paitient = paitientData.toArray(new Paitient[paitientData.size()]);
-		
+
+		Paitient[] paitient = doctorData.toArray(new Paitient[doctorData.size()]);
+
 		oos.writeObject(paitient);
-		
+
 		oos.close();
 	}
-	
+
 	public void loadFromFile(File file) throws IOException{
-		
+
 		FileInputStream fis = new FileInputStream(file);
 		ObjectInputStream ois = new ObjectInputStream(fis);
-		
+
 		try {
-			
-			Paitient [] paitient = (Paitient[])ois.readObject();
-			
-			paitientData.clear();
-			paitientData.addAll(Arrays.asList(paitient));
-			
+
+			Doctor [] doctor = (Doctor[])ois.readObject();
+
+			doctorData.clear();
+			doctorData.addAll(Arrays.asList(doctor));
+
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		
+
 		ois.close();
 	}
 	public void removePaitient(int index){
-		
-		paitientData.remove(index);
+
+		doctorData.remove(index);
 	}
 }

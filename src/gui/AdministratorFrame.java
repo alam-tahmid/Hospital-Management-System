@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +15,10 @@ import javax.swing.KeyStroke;
 
 import controller.Controller;
 
-public class MainFrame extends JFrame {
+public class AdministratorFrame extends JFrame {
 
+
+	private AdministratorPage administratorPage;
 	private ToolBar toolbar;
 	private FormPanel formPanel;
 	private TextPanel textPanel;
@@ -25,26 +26,26 @@ public class MainFrame extends JFrame {
 	private Controller controller;
 	private TablePanel table;
 
-	public MainFrame() {
+	public AdministratorFrame() {
 
 		super("Hospital Management System");
 
 		toolbar = new ToolBar();
-		formPanel = new FormPanel();
+		administratorPage = new AdministratorPage();
 		textPanel = new TextPanel();
 		table = new TablePanel();
 
 		controller = new Controller();
-		
-		table.setTable(controller.getPaitient());
-		
+
+		/*table.setTable(controller.getPaitient());
+
 		table.addPaitientTableListener(new PaitientTableListener(){
-			
+
 			public void rowDeleted(int row){
-				
+
 				controller.removePatient(row);
 			}
-		});
+		});*/
 
 		fileChooser = new JFileChooser();
 		fileChooser.addChoosableFileFilter(new PaitientFileFilter());
@@ -55,17 +56,17 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void textGetter(String text) {// ///for getting text from the
-													// text panel
+				// text panel
 
 				textPanel.appendText(text);
 			}
 		});
 
-		formPanel.setFormListener(new FormListener() {
+		administratorPage.setFormListener(new FormListener() {
 
 			public void FormEventOccured(FormEvent e) {
 
-				controller.addPaitient(e);
+				//controller.addPaitient(e);
 				table.refresh();
 			}
 		});
@@ -75,7 +76,7 @@ public class MainFrame extends JFrame {
 
 		// add(textPanel, BorderLayout.CENTER);
 		add(toolbar, BorderLayout.NORTH);
-		add(formPanel, BorderLayout.WEST);
+		add(administratorPage, BorderLayout.WEST);
 		add(table, BorderLayout.CENTER);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,7 +114,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				int i = JOptionPane.showConfirmDialog(MainFrame.this,
+				int i = JOptionPane.showConfirmDialog(AdministratorFrame.this,
 						"Are you sure you want to exit?", "Confirm Exit",
 						JOptionPane.OK_CANCEL_OPTION);
 
@@ -131,19 +132,19 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {// // Have to fill up
-															// the
-															// actionlistener
-															// for exporting
-															// data.
+				// the
+				// actionlistener
+				// for exporting
+				// data.
 
-				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+				if (fileChooser.showSaveDialog(AdministratorFrame.this) == JFileChooser.APPROVE_OPTION) {
 
 					try {
 
 						controller.saveToFile(fileChooser.getSelectedFile());
 					} catch (IOException e) {
 
-						JOptionPane.showMessageDialog(MainFrame.this,
+						JOptionPane.showMessageDialog(AdministratorFrame.this,
 								"Could Not Save File", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
@@ -157,12 +158,12 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {// //Have to fill up
-															// the
-															// actionlistener
-															// for importing
-															// data.
+				// the
+				// actionlistener
+				// for importing
+				// data.
 
-				if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+				if (fileChooser.showOpenDialog(AdministratorFrame.this) == JFileChooser.APPROVE_OPTION) {
 
 					try {
 
@@ -170,7 +171,7 @@ public class MainFrame extends JFrame {
 						table.refresh();
 					} catch (IOException e) {
 
-						JOptionPane.showMessageDialog(MainFrame.this,
+						JOptionPane.showMessageDialog(AdministratorFrame.this,
 								"Could Not load Data From File", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
@@ -187,14 +188,14 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				int i = JOptionPane.showConfirmDialog(MainFrame.this,
+				int i = JOptionPane.showConfirmDialog(AdministratorFrame.this,
 						"Do you want to print", "Printing Confirmation",
 						JOptionPane.OK_CANCEL_OPTION);
 
 				if (i == JOptionPane.OK_OPTION) {
 
 					JOptionPane
-							.showMessageDialog(MainFrame.this, "Printing...");
+					.showMessageDialog(AdministratorFrame.this, "Printing...");
 				}
 
 			}
@@ -204,3 +205,5 @@ public class MainFrame extends JFrame {
 		return menuBar;
 	}
 }
+
+

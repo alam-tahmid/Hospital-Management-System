@@ -2,6 +2,8 @@ package controller;
 
 import gui.FormEvent;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import model.Gender;
@@ -19,6 +21,7 @@ public class Controller {
 	
 	public void addPaitient(FormEvent e){
 		
+		String id = e.getId();
 		String first = e.getFirstName();
 		String second = e.getLastName();
 		String occupation =  e.getOccupation();
@@ -39,7 +42,7 @@ public class Controller {
 		}
 		
 		
-		Paitient paitient = new Paitient(first,second,occupation,age,address,phone,email,gen);
+		Paitient paitient = new Paitient(id,first,second,occupation,age,address,phone,email,gen);
 		
 		db.addPaitient(paitient);
 		
@@ -47,5 +50,20 @@ public class Controller {
 		//textPanel.appendText("Name :"+ second +" "+first+"\n"+"Gender: "+gender+"\n"+"Occupation"+occupation+"\n"
 				//+"Age: "+age+"\n"+"Adress: "+address+"\n"+"Phone no: "+phone+"\n"+"email: "+email+"\n");
 
+	}
+	
+	public void saveToFile(File file) throws IOException{
+		
+		db.saveToFile(file);
+	}
+	
+	public void LoadFromFile(File file) throws IOException{
+		
+		db.loadFromFile(file);
+	}
+	
+	public void removePatient(int index){
+		
+		db.removePaitient(index);
 	}
 }

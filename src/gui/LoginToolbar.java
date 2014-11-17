@@ -1,68 +1,67 @@
 package gui;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 
-public class LoginToolbar extends JPanel implements ActionListener  {
+public class LoginToolbar extends JDialog implements ActionListener  {
 
 	private JButton administrator;
 	private JButton staff;
 	private JButton doctor;
 
-	public LoginToolbar(){
+	public LoginToolbar(JFrame parent){
 
-		Dimension dim = getPreferredSize();
-		dim.width = 600;
-		setPreferredSize(dim);
-		
+		super(parent,"Login Panel",false);
+		setSize(400,300);
+		setLocationRelativeTo(parent);
+
+		setLayout(new GridBagLayout());
+
 		administrator = new JButton("Administrator");
 		staff = new JButton("Staff");
 		doctor = new JButton("Doctor");
 
-		
-
 		administrator.addActionListener(this);
 		staff.addActionListener(this);
 		doctor.addActionListener(this);
-		
-		
+
 		GridBagConstraints gc = new GridBagConstraints();
-		
-		
-		gc.gridx = 0;
-		gc.gridy = 0;
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+
+		gc.gridy=0;
+		gc.weightx=1;
+		gc.weighty =1;
 		gc.fill = GridBagConstraints.NONE;
 
-		add(administrator, gc);
+		gc.gridx=0;
 
-		gc.gridx = 0;
-		gc.gridy = 1;
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		add(staff,gc);
+
+		gc.gridy++;
+		gc.weightx=1;
+		gc.weighty =1;
 		gc.fill = GridBagConstraints.NONE;
 
-		add(doctor, gc);
+		gc.gridx=0;
 
-		gc.gridx = 0;
-		gc.gridy = 2;
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		add(doctor,gc);
+
+		gc.gridy++;
+		gc.weightx=1;
+		gc.weighty =1;
 		gc.fill = GridBagConstraints.NONE;
 
-		add(staff, gc);
+		gc.gridx=0;
+
+		add(administrator,gc);
+
+
+		setVisible(true);
 
 	}
 
@@ -71,18 +70,21 @@ public class LoginToolbar extends JPanel implements ActionListener  {
 
 
 		JButton clicked = (JButton)e.getSource();
-		
+
 		if(clicked == administrator){
-			
-			System.out.println("Administrator button is clicked");
+
+			new AdministratorPanel();
+			dispose();
 		}
 		else if(clicked == staff){
-			
-			System.out.println("Staff button is clicked");
+
+			new StaffPanel();
+			dispose();
 		}
 		else if(clicked == doctor){
-			
-			System.out.println("Doctor button is clicked");
+
+			new DoctorPanel();
+			dispose();
 		}
 
 	}

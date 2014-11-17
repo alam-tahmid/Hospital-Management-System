@@ -4,6 +4,7 @@ import java.util.EventObject;
 
 public class FormEvent extends EventObject {
 
+	private String id;////it has to be generated and add to table
 	private String firstName;
     private String lastName;
     private String occupation;
@@ -17,9 +18,10 @@ public class FormEvent extends EventObject {
         super(source);
     }
 
-    public FormEvent(Object source, String firstName, String lastName, String occupation, String age, String address, String phone, String email,String gender) {
+    public FormEvent(Object source,String id, String firstName, String lastName, String occupation, String age, String address, String phone, String email,String gender) {
         super(source);
 
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.occupation = occupation;
@@ -29,8 +31,30 @@ public class FormEvent extends EventObject {
         this.email = email;
         this.gender = gender;
     }
+    
+    public FormEvent(Object source,String id, String name, String occupation, String age, String address, String phone, String email,String gender) {
+        super(source);
 
-    public String getGender() {
+        this.id = id;
+        this.firstName = name;
+        this.occupation = occupation;
+        this.age = age;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+    }
+    
+
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getGender() {
 		return gender;
 	}
 
