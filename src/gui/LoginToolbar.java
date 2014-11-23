@@ -15,11 +15,10 @@ public class LoginToolbar extends JDialog implements ActionListener  {
 	private JButton staff;
 	private JButton doctor;
 
-	public LoginToolbar(JFrame parent){
+	public LoginToolbar(){
 
-		super(parent,"Login Panel",false);
+		setTitle("Login Panel");
 		setSize(400,300);
-		setLocationRelativeTo(parent);
 
 		setLayout(new GridBagLayout());
 

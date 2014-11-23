@@ -15,6 +15,7 @@ import javax.swing.KeyStroke;
 
 import controller.Controller;
 
+
 public class AdministratorFrame extends JFrame {
 
 
@@ -82,6 +83,7 @@ public class AdministratorFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
+
 
 	private JMenuBar createMenuBar() {
 

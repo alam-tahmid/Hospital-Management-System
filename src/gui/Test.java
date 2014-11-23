@@ -11,7 +11,7 @@ public class Test {
 
 				@Override
 				public void run() {
-					new LoginFrame();
+					new LoginToolbar();
 				}
 			});
 		}
