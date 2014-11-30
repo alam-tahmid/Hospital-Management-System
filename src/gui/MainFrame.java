@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -35,13 +36,13 @@ public class MainFrame extends JFrame {
 		table = new TablePanel();
 
 		controller = new Controller();
-		
+
 		table.setTable(controller.getPaitient());
-		
+
 		table.addPaitientTableListener(new PaitientTableListener(){
-			
+
 			public void rowDeleted(int row){
-				
+
 				controller.removePatient(row);
 			}
 		});
@@ -51,13 +52,41 @@ public class MainFrame extends JFrame {
 
 		setJMenuBar(createMenuBar());
 
-		toolbar.stringSetter(new StringListener() {
+		toolbar.setToolabarListener(new ToolbarListener() {
 
 			@Override
-			public void textGetter(String text) {// ///for getting text from the
-													// text panel
+			public void saveEventOccured() {
 
-				textPanel.appendText(text);
+				connect();
+
+				try {
+
+					controller.save();
+				} catch (SQLException e) {
+
+					JOptionPane.showMessageDialog(MainFrame.this,
+							"Save failed", "Error",
+							JOptionPane.ERROR_MESSAGE);			
+				}
+			}
+
+			@Override
+			public void refreshEventOccured() {
+
+				connect();
+
+				try {
+
+					controller.load();
+				} catch (SQLException e) {
+
+					JOptionPane.showMessageDialog(MainFrame.this,
+							"Loading failed", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				System.out.println("Refresh");
+				table.refresh();
 			}
 		});
 
@@ -82,6 +111,19 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 
+	public void connect(){
+
+		try {
+
+			controller.connect();
+		} catch (Exception e) {
+
+			JOptionPane.showMessageDialog(MainFrame.this,
+					"Could Not Connect", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 	private JMenuBar createMenuBar() {
 
 		JMenuBar menuBar = new JMenuBar();
@@ -90,6 +132,7 @@ public class MainFrame extends JFrame {
 
 		JMenuItem exportData = new JMenuItem("Export");
 		JMenuItem importData = new JMenuItem("Import");
+		JMenuItem createTable = new JMenuItem("Create Table");
 		JMenuItem saveData = new JMenuItem("Save");
 		JMenuItem printData = new JMenuItem("Print");
 		JMenuItem Exit = new JMenuItem("Exit");
@@ -97,6 +140,7 @@ public class MainFrame extends JFrame {
 		file.add(exportData);
 		file.add(importData);
 		file.addSeparator();
+		file.add(createTable);
 		file.add(saveData);
 		file.add(printData);
 		file.addSeparator();
@@ -131,10 +175,10 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {// // Have to fill up
-															// the
-															// actionlistener
-															// for exporting
-															// data.
+				// the
+				// actionlistener
+				// for exporting
+				// data.
 
 				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
 
@@ -157,10 +201,10 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {// //Have to fill up
-															// the
-															// actionlistener
-															// for importing
-															// data.
+				// the
+				// actionlistener
+				// for importing
+				// data.
 
 				if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
 
@@ -194,10 +238,29 @@ public class MainFrame extends JFrame {
 				if (i == JOptionPane.OK_OPTION) {
 
 					JOptionPane
-							.showMessageDialog(MainFrame.this, "Printing...");
+					.showMessageDialog(MainFrame.this, "Printing...");
 				}
 
 			}
+
+		});
+
+		createTable.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+
+				try {
+					controller.createTable();
+				} catch (Exception e) {
+
+					JOptionPane.showMessageDialog(MainFrame.this,
+							"Table aready created!!!", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
 
 		});
 

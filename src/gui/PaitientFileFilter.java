@@ -6,8 +6,6 @@ import javax.swing.filechooser.FileFilter;
 
 public class PaitientFileFilter extends FileFilter {
 	
-	private Extension ex;
-
 	@Override
 	public boolean accept(File file) {
 
@@ -16,9 +14,9 @@ public class PaitientFileFilter extends FileFilter {
 			return true;
 		}
 		String name = file.getName();
-		ex = new Extension();
 		
-		String exten = ex.extension(name);
+		
+		String exten = Extension.getExtension(name);
 		
 		if(exten == null){
 			
@@ -34,7 +32,7 @@ public class PaitientFileFilter extends FileFilter {
 	@Override
 	public String getDescription() {
 		
-		return "Paitience database(*.hms)";
+		return "Paitient database(*.hms)";
 	}
 
 }

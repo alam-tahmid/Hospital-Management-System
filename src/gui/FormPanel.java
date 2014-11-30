@@ -43,7 +43,7 @@ public class FormPanel extends JPanel {
 	private JRadioButton femaleButton;
 	private ButtonGroup buttonGroup;
 	
-	private Random r;
+	private int r = 13101010;
 
 	public FormPanel() {
 
@@ -51,8 +51,8 @@ public class FormPanel extends JPanel {
 		dim.width = 250;
 		setPreferredSize(dim);
 		
-		r = new Random();
-
+		
+		
 		id = new JLabel("ID");
 		firstName = new JLabel("First Name: ");
 		lastName = new JLabel("Last Name: ");
@@ -82,13 +82,13 @@ public class FormPanel extends JPanel {
 		phoneField = new JTextField(10);
 		emailField = new JTextField(10);
 		
-		idField.setText(""+r.nextInt(Integer.max(0, Integer.MAX_VALUE)));
+		idField.setText(""+r++);
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String id = idField.getText();
+				int id = Integer.parseInt(idField.getText());
 				String first = firstNameField.getText();
 				String second = lastNameField.getText();
 				String occ = occupationField.getText();
@@ -101,7 +101,7 @@ public class FormPanel extends JPanel {
 				FormEvent ev = new FormEvent(this, id,first, second, occ, ageGet, addressGet, phoneGet, emailGet,genderSelection);
 
 				if(formlistener != null){
-					idField.setText(""+r.nextInt(Integer.max(0, Integer.MAX_VALUE)));
+					idField.setText(""+r++);
 					formlistener.FormEventOccured(ev);
 					
 

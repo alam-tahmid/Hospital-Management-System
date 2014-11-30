@@ -125,7 +125,7 @@ public class AdministratorPanel extends JFrame implements ActionListener {
 			if(administratorField.getText().equals("administrator") && passField.getText().equals("administrator")){
 
 				System.out.println("clicked");
-				new AdministratorPage();
+				new AdministratorFrame();
 				dispose();
 			}else{
 

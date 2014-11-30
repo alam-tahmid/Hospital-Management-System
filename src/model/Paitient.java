@@ -8,7 +8,7 @@ public class Paitient implements Serializable {
 	
 	private static final long serialVersionUID = -8073002703117196230L;
 	
-	private String id;//unique id of the paitient in the database
+	private int id;//unique id of the paitient in the database
 	private String firstName;
 	private String lastName;
 	private String occupation;
@@ -18,7 +18,7 @@ public class Paitient implements Serializable {
 	private String email;
 	private Gender gender;
 	
-	public Paitient(String id,String firstName, String lastName, String occupation,
+	public Paitient(int id,String firstName, String lastName, String occupation,
 			String age, String address, String phone, String email,
 			Gender gender) {
 		
@@ -33,11 +33,11 @@ public class Paitient implements Serializable {
 		this.gender = gender;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -104,4 +104,10 @@ public class Paitient implements Serializable {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
+	
+	public String toString(){
+		
+		return id+" : "+ firstName+" "+ lastName;
+	}
+	
 }

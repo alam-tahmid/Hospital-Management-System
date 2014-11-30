@@ -38,7 +38,7 @@ public class AdministratorFrame extends JFrame {
 
 		controller = new Controller();
 
-		/*table.setTable(controller.getPaitient());
+		table.setTable(controller.getPaitient());
 
 		table.addPaitientTableListener(new PaitientTableListener(){
 
@@ -46,20 +46,26 @@ public class AdministratorFrame extends JFrame {
 
 				controller.removePatient(row);
 			}
-		});*/
+		});
 
 		fileChooser = new JFileChooser();
 		fileChooser.addChoosableFileFilter(new PaitientFileFilter());
 
 		setJMenuBar(createMenuBar());
 
-		toolbar.stringSetter(new StringListener() {
+		toolbar.setToolabarListener(new ToolbarListener() {
 
 			@Override
-			public void textGetter(String text) {// ///for getting text from the
+			public void saveEventOccured() {// ///for getting text from the
 				// text panel
 
-				textPanel.appendText(text);
+				//textPanel.appendText(text);
+			}
+
+			@Override
+			public void refreshEventOccured() {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 
@@ -75,7 +81,7 @@ public class AdministratorFrame extends JFrame {
 		setLayout(new BorderLayout());
 		setSize(600, 600);
 
-		// add(textPanel, BorderLayout.CENTER);
+		add(textPanel, BorderLayout.CENTER);
 		add(toolbar, BorderLayout.NORTH);
 		add(administratorPage, BorderLayout.WEST);
 		add(table, BorderLayout.CENTER);

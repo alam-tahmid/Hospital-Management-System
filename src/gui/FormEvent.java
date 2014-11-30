@@ -4,10 +4,12 @@ import java.util.EventObject;
 
 public class FormEvent extends EventObject {
 
-	private String id;////it has to be generated and add to table
+	private int id;////it has to be generated and add to table
+	private String name;////Doctor's name
 	private String firstName;
     private String lastName;
     private String occupation;
+    private String spec;
     private String age;
     private String address;
     private String phone;
@@ -18,8 +20,9 @@ public class FormEvent extends EventObject {
         super(source);
     }
 
-    public FormEvent(Object source,String id, String firstName, String lastName, String occupation, String age, String address, String phone, String email,String gender) {
-        super(source);
+    public FormEvent(Object source,int id, String firstName, String lastName, String occupation, String age, String address, String phone, String email,String gender) {
+        
+    	super(source);
 
         this.id = id;
         this.firstName = firstName;
@@ -31,13 +34,18 @@ public class FormEvent extends EventObject {
         this.email = email;
         this.gender = gender;
     }
-    
-    public FormEvent(Object source,String id, String name, String occupation, String age, String address, String phone, String email,String gender) {
-        super(source);
+    /////////////////////////////////////
+    /////////////////////////////////////
+    //////// Doctor's information////////
+    /////////////////////////////////////
+    /////////////////////////////////////
+    public FormEvent(Object source,int id, String name, String spec, String age, String address, String phone, String email,String gender) {
+       
+    	super(source);
 
         this.id = id;
         this.firstName = name;
-        this.occupation = occupation;
+        this.spec = spec;
         this.age = age;
         this.address = address;
         this.phone = phone;
@@ -46,11 +54,11 @@ public class FormEvent extends EventObject {
     }
     
 
-    public String getId() {
+    public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

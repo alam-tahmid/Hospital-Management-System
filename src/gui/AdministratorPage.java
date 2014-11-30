@@ -43,7 +43,7 @@ public class AdministratorPage extends JPanel {
 	private JRadioButton femaleButton;
 	private ButtonGroup buttonGroup;
 
-	private Random r;
+	private int r= 14101010;
 
 	public AdministratorPage() {
 
@@ -51,7 +51,7 @@ public class AdministratorPage extends JPanel {
 		dim.width = 250;
 		setPreferredSize(dim);*/
 
-		r = new Random();
+		
 
 		id = new JLabel("ID");
 		name = new JLabel("First Name: ");
@@ -80,13 +80,13 @@ public class AdministratorPage extends JPanel {
 		phoneField = new JTextField(10);
 		emailField = new JTextField(10);
 
-		idField.setText(""+r.nextInt(Integer.max(0, Integer.MAX_VALUE)));
+		idField.setText(""+r++);
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String id = idField.getText();
+				int id = Integer.parseInt(idField.getText());
 				String first = nameField.getText();
 				String spec = specField.getText();
 				String ageGet = ageField.getText();
@@ -99,7 +99,7 @@ public class AdministratorPage extends JPanel {
 
 				if(formlistener != null){
 
-					idField.setText(""+r.nextInt(Integer.max(0, Integer.MAX_VALUE)));
+					idField.setText(""+r++);
 					formlistener.FormEventOccured(ev);
 				}
 			}

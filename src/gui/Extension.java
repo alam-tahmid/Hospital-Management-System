@@ -1,19 +1,21 @@
 package gui;
 
-public class Extension {
+public  class Extension {
 
-	public String extension(String name){
+	public static String getExtension(String name){
 
 		int index = name.lastIndexOf(".");
+		
+		
 		if(index ==-1){
 
 			return null;
 		}
-		if(index == name.length()){
+		if(index == name.length()-1){
 
 			return null;
 		}
 
-		return name.substring(index+1,name.length()-1);
+		return name.substring(index+1, name.length());
 	}
 }
