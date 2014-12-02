@@ -30,6 +30,48 @@ public class PaitientDatabase {
 	private String createTableSQL;
 	private List<Paitient> paitientData;
 
+	private String FName;
+	private String LName;
+	private String occupation;
+	private String gen;
+	private String Email;
+	private String phone;
+	private String adr;
+	private String age;
+
+
+	public String getAge() {
+		return age;
+	}
+
+	public String getFName() {
+		return FName;
+	}
+
+	public String getLName() {
+		return LName;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public String getGen() {
+		return gen;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public String getAdr() {
+		return adr;
+	}
+
 	public PaitientDatabase() {
 
 		paitientData =  new LinkedList<Paitient>();
@@ -65,7 +107,6 @@ public class PaitientDatabase {
 		con = DriverManager.getConnection("jdbc:derby:" + dbName + ";create=true");
 
 	}
-
 
 	public void disconnect(){
 
@@ -158,7 +199,6 @@ public class PaitientDatabase {
 		checkStmt.close();
 	}
 
-
 	public void load() throws SQLException{
 
 		paitientData.clear();
@@ -222,12 +262,36 @@ public class PaitientDatabase {
 		ois.close();
 	}
 
-
 	public void removePaitient(int index){
 
 		paitientData.remove(index);
 	}
 
+	public void search(int id ) throws SQLException {
+
+		PreparedStatement st = con.prepareStatement("select * from paitient where id=?");
+		st.setInt(1, id);
+
+		//Excuting Query
+		ResultSet rs = st.executeQuery();
+
+		if (rs.next()) {
+
+			FName = rs.getString("FIRST_NAME");
+			LName = rs.getString("LAST_NAME");
+			occupation = rs.getString("OCCUPATION");
+			age = rs.getString("AGE");
+			adr = rs.getString("ADDRESS");
+			phone = rs.getString("PHONE");
+			Email = rs.getString("EMAIL");
+			gen = rs.getString("GENDER");
+
+			System.out.println("Firstname: "+ FName);
+
+		}
+		rs.close();
+		st.close();
+	}
 
 	/////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////

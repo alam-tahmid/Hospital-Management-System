@@ -7,12 +7,12 @@ import model.PaitientDatabase;
 
 public class TestDataBase {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		System.out.println("Running Database test");
 
 		PaitientDatabase db = new PaitientDatabase();
-		try {
+		/*try {
 
 			db.connect();
 
@@ -21,8 +21,8 @@ public class TestDataBase {
 			//			System.out.println("could not run");
 
 			e.printStackTrace(); 
-		}
-
+		}*/
+/*
 		db.addPaitient(new Paitient(131010, "Tahmid", " Alam", " Student",
 				" 21", " Cantonment", " 01671892984", " alam.tahmid@gmail.com",
 				Gender.male));
@@ -34,14 +34,14 @@ public class TestDataBase {
 				Gender.male));
 		db.addPaitient(new Paitient(131013, "Maqsud", " Anwar", " Student",
 				" 23", " MDpur", " 0181", " maqsud131033@gmail.com",
-				Gender.male));
-		try {
+				Gender.male));*/
+		/*try {
 			
 			db.save();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		/*try {
 			db.query();
@@ -50,13 +50,20 @@ public class TestDataBase {
 			e.printStackTrace();
 		}*/
 		
-		try {
+	/*	try {
 			db.load();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
+		try {
+			db.connect();
+			db.search(131011);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		db.disconnect();
 	}
 }

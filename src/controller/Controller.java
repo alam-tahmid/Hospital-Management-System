@@ -13,6 +13,16 @@ import model.PaitientDatabase;
 
 public class Controller {
 
+	public String fname = "";
+	public String lname="";
+	public String age="";
+	public String gender="";
+	public String occupation="";
+	public String email="";
+	public String adr="";
+	public String phone="";
+
+
 	PaitientDatabase db = new PaitientDatabase();
 
 	public List<Paitient> getPaitient(){
@@ -48,8 +58,32 @@ public class Controller {
 		db.addPaitient(paitient);
 
 
+
 		//textPanel.appendText("Name :"+ second +" "+first+"\n"+"Gender: "+gender+"\n"+"Occupation"+occupation+"\n"
 		//+"Age: "+age+"\n"+"Adress: "+address+"\n"+"Phone no: "+phone+"\n"+"email: "+email+"\n");
+
+	}
+
+	public void search(int id ) throws SQLException{
+
+		try {
+			
+			db.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		db.search(id);
+		
+		fname = db.getFName();
+		lname = db.getLName();
+		gender = db.getGen();
+		age = db.getAge();
+		email = db.getEmail();
+		phone = db.getPhone();
+		occupation = db.getOccupation();
+		adr = db.getAdr();
 
 	}
 

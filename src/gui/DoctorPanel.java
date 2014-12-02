@@ -26,7 +26,7 @@ public class DoctorPanel extends JFrame implements ActionListener {
 
 	public DoctorPanel(){
 
-		super("Staff's Login");
+		super("Doctor's Login");
 
 		doctorName = new JLabel("Doctor's Name :");
 		password = new JLabel("Password :");
@@ -122,7 +122,7 @@ public class DoctorPanel extends JFrame implements ActionListener {
 
 			if(doctorField.getText().equals("doctor") && passField.getText().equals("doctor")){
 
-				new DoctorPage();
+				new PrescriptionFrame();
 				dispose();
 			}else{
 

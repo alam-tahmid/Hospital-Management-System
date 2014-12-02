@@ -1,11 +1,12 @@
 package gui;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -16,8 +17,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import controller.Controller;
 
-public class FormPanel extends JPanel {
+
+public class PrescriptionInfo extends JPanel {
 
 	private JLabel id;
 	private JLabel firstName;
@@ -27,6 +30,7 @@ public class FormPanel extends JPanel {
 	private JLabel address;
 	private JLabel phone;
 	private JLabel email;
+	private JLabel gender;
 	private FormListener formlistener;
 
 	private JTextField idField;
@@ -37,31 +41,35 @@ public class FormPanel extends JPanel {
 	private JTextField addressField;
 	private JTextField phoneField;
 	private JTextField emailField;
+	private JTextField genderField;
 
-	private JButton okButton;
+	private Controller controller;
+
+
+	private JButton searchButton;
 	private JRadioButton maleButton;
 	private JRadioButton femaleButton;
 	private ButtonGroup buttonGroup;
 
-	private int r = 13101010;
 
-	public FormPanel() {
+	public PrescriptionInfo() {
 
 		Dimension dim = getPreferredSize();
 		dim.width = 250;
 		setPreferredSize(dim);
-
+		controller = new Controller();
 
 
 		id = new JLabel("ID");
 		firstName = new JLabel("First Name: ");
 		lastName = new JLabel("Last Name: ");
+		gender = new JLabel("Gender");
 		occupation = new JLabel("Occupation: ");
 		age = new JLabel("Age: ");
 		address = new JLabel("Address: ");
 		phone = new JLabel("Phone NO: ");
 		email = new JLabel("e-mail: ");
-		okButton = new JButton("OKAY");
+		searchButton = new JButton("Search");
 
 		maleButton = new JRadioButton("Male");
 		femaleButton = new JRadioButton("Female");
@@ -76,45 +84,37 @@ public class FormPanel extends JPanel {
 		idField = new JTextField(10);
 		firstNameField = new JTextField(10);
 		lastNameField = new JTextField(10);
+		genderField = new JTextField(10);
 		occupationField = new JTextField(10);
 		ageField = new JTextField(10);
 		addressField = new JTextField(10);
 		phoneField = new JTextField(10);
 		emailField = new JTextField(10);
 
-		idField.setText(""+r++);
-		okButton.addActionListener(new ActionListener() {
+		searchButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				int id = Integer.parseInt(idField.getText());
-				String first = firstNameField.getText();
-				String second = lastNameField.getText();
-				String occ = occupationField.getText();
-				String ageGet = ageField.getText();
-				String addressGet = addressField.getText();
-				String phoneGet = phoneField.getText();
-				String emailGet = emailField.getText();
-				String genderSelection = (String)buttonGroup.getSelection().getActionCommand();
+			
+				try {
+					controller.search(id);
 
-				FormEvent ev = new FormEvent(this, id,first, second, occ, ageGet, addressGet, phoneGet, emailGet,genderSelection);
+					firstNameField.setText(controller.fname);
+					lastNameField.setText(controller.lname);
+					occupationField.setText(controller.occupation);
+					genderField.setText(controller.gender);
+					ageField.setText(controller.age);
+					addressField.setText(controller.adr);
+					phoneField.setText(controller.phone);
+					emailField.setText(controller.email);
 
-				if(formlistener != null){
-					idField.setText(""+r++);
-					formlistener.FormEventOccured(ev);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-
-				firstNameField.setText("");
-				lastNameField.setText("");
-				occupationField.setText("");
-				ageField.setText("");
-				addressField.setText("");
-				phoneField.setText("");
-				emailField.setText("");
-
 			}
-
 		});
 
 		Border innerBorder = BorderFactory.createTitledBorder("Paitient Detail");
@@ -196,8 +196,6 @@ public class FormPanel extends JPanel {
 
 		add(lastNameField, gc);
 
-
-
 		///////// Adding button label/////////////
 		gc.gridx = 0;
 		gc.gridy = 3;
@@ -207,9 +205,7 @@ public class FormPanel extends JPanel {
 		gc.fill = GridBagConstraints.NONE;
 		gc.insets = new Insets(0, 0, 0, 0);
 
-		add(new JLabel("Gender:"), gc);
-
-
+		add(gender, gc);
 
 		///////// Adding male button /////////////
 
@@ -221,20 +217,7 @@ public class FormPanel extends JPanel {
 		gc.fill = GridBagConstraints.NONE;
 		gc.insets = new Insets(0, 0, 0, 5);
 
-		add(maleButton, gc);
-
-
-		///////// Adding female button /////////////
-
-		gc.gridx = 1;
-		gc.gridy = 4;
-		gc.weightx = 1;
-		gc.weighty = 0.2;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.fill = GridBagConstraints.NONE;
-		gc.insets = new Insets(0, 0, 0, 5);
-
-		add(femaleButton, gc);
+		add(genderField, gc);
 
 		///////// Adding occupation label/////////////
 		gc.gridx = 0;
@@ -349,7 +332,7 @@ public class FormPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		gc.fill = GridBagConstraints.NONE;
 
-		add(okButton, gc);
+		add(searchButton, gc);
 	}
 
 	public void setFormListener(FormListener formlistener){
